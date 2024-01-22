@@ -8,6 +8,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
 	<TargetSptAkiVersion>sptaki376</TargetSptAkiVersion>
+	<Configurations>Debug;Release;BETA</Configurations>
   </PropertyGroup>
 
 	<ItemGroup>

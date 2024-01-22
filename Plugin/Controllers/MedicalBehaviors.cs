@@ -90,10 +90,8 @@ namespace SkillsExtended.Controllers
 
         private void Awake()
         {
-            new EnableSkillsPatch().Enable();
             new DoMedEffectPatch().Enable();
             new OnScreenChangePatch().Enable(); 
-            new SimpleToolTipPatch().Enable();
         }
 
         private void Update()
