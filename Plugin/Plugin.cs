@@ -43,6 +43,7 @@ namespace SkillsExtended
             new SimpleToolTipPatch().Enable();
             new SkillManagerConstructorPatch().Enable();
             new OnScreenChangePatch().Enable();
+            new SkillPanelDisablePatch().Enable();
 
             Log = Logger;
             

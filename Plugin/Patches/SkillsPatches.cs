@@ -21,7 +21,7 @@ namespace SkillsExtended.Patches
                 typeof(SkillManager).GetConstructor(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, new Type[] { typeof(EPlayerSide) }, null);
 
             [PatchPostfix]
-            public static void Postfix(SkillManager __instance, ref GClass1635[] ___DisplayList, ref GClass1635[] ___Skills, 
+            public static void Postfix(SkillManager __instance, ref GClass1635[] ___DisplayList, ref GClass1635[] ___Skills,
                 ref GClass1635 ___UsecArsystems, ref GClass1635 ___BearAksystems)
             {
                 int insertIndex = 12;
@@ -59,14 +59,14 @@ namespace SkillsExtended.Patches
             public static void Postfix(SkillManager __instance)
             {
                 try
-                { 
+                {
                     AccessTools.Field(Utils.GetSkillType(), "Locked").SetValue(__instance.FirstAid, false);
                     AccessTools.Field(Utils.GetSkillType(), "Locked").SetValue(__instance.FieldMedicine, false);
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     Plugin.Log.LogDebug(e);
-                }   
+                }
             }
         }
 
@@ -121,7 +121,7 @@ namespace SkillsExtended.Patches
 
                     __instance.SetText($"As a USEC PMC, you excel in the use of NATO assault rifles and carbines. \n\n" +
                         $"Inceases ergonomics by {Constants.USEC_ERGO_MOD * 100}% per level on NATO assault rifles and carbines. \n {Constants.USEC_RECOIL_REDUCTION_ELITE * 100}% Elite bonus \n\n" +
-                        $"Reduces vertical and horizontal recoil by {Constants.USEC_RECOIL_REDUCTION * 100}% per level. \n {Constants.USEC_RECOIL_REDUCTION_ELITE * 100}% Elite bonus \n\n" + 
+                        $"Reduces vertical and horizontal recoil by {Constants.USEC_RECOIL_REDUCTION * 100}% per level. \n {Constants.USEC_RECOIL_REDUCTION_ELITE * 100}% Elite bonus \n\n" +
                         $"Current ergonomics bonus: <color=#54C1FFFF>{ergoBonus * 100}%</color>\n" +
                         $"Current recoil bonuses: <color=#54C1FFFF>{recoilReduction * 100}%</color>");
                 }
@@ -131,6 +131,22 @@ namespace SkillsExtended.Patches
                     //TODO: Replace placeholder text
 
                     __instance.SetText($"As a Bear PMC, you excel in the use of eastern block assult rifles and carbines.");
+                }
+            }
+
+            internal class SkillPanelDisablePatch : ModulePatch
+            {
+                protected override MethodBase GetTargetMethod() =>
+                    typeof(SkillPanel).GetMethod("Show", BindingFlags.Public | BindingFlags.Instance);
+
+                [PatchPrefix]
+                public static bool Prefix(GClass1635 skill)
+                {
+                    if (skill.Locked)
+                    {
+                        return false;
+                    }
+                    return true;
                 }
             }
 
@@ -168,7 +184,7 @@ namespace SkillsExtended.Patches
                     {
                         Plugin.MedicalScript.fieldMedicineInstanceIDs.Clear();
                         Plugin.MedicalScript.firstAidInstanceIDs.Clear();
-                        Plugin.UsecARSystems.weaponInstanceIds.Clear(); 
+                        Plugin.UsecARSystems.weaponInstanceIds.Clear();
                         Utils.GetServerConfig();
                     }
                 }
