@@ -40,10 +40,11 @@ namespace SkillsExtended
 
             new EnableSkillsPatch().Enable();
             new SkillPanelNamePatch().Enable();
+            new SkillPanelDisablePatch().Enable();
             new SimpleToolTipPatch().Enable();
             new SkillManagerConstructorPatch().Enable();
             new OnScreenChangePatch().Enable();
-            new SkillPanelDisablePatch().Enable();
+            
 
             Log = Logger;
             
