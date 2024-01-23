@@ -114,14 +114,14 @@ namespace SkillsExtended.Patches
                 {
                     //TODO: Replace placeholder text
 
-                    __instance.SetText($"As a Usec operator, you excel in the use of AR platform weapons.");
+                    __instance.SetText($"As a Usec operator, you excel in the use of NATO assault weapons and carbines.");
                 }
 
                 if (Regex.IsMatch(text, bearAKSystems))
                 {
                     //TODO: Replace placeholder text
 
-                    __instance.SetText($"As a Bear operator, you excel in the use of AK platform weapons.");
+                    __instance.SetText($"As a Bear operator, you excel in the use of eastern block assult weapons and carbines.");
                 }
             }
         }

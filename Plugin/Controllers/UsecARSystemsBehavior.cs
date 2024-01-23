@@ -9,6 +9,14 @@ namespace Skills_Extended.Controllers
 {
     public class UsecARSystemsBehavior : MonoBehaviour
     {
+        private void Awake()
+        {
 
+        }
+
+        private void Update()
+        {
+
+        }
     }
 }

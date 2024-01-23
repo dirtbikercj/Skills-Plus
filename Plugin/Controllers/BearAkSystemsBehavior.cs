@@ -7,8 +7,16 @@ using UnityEngine;
 
 namespace SkillsExtended.Controllers
 {
-    public class BearAkSystemsBehavior : MonoBehaviour
+    public class BearAKSystemsBehavior : MonoBehaviour
     {
+        private void Awake()
+        {
 
+        }
+
+        private void Update()
+        {
+
+        }
     }
 }

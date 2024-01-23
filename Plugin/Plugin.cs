@@ -25,7 +25,7 @@ namespace SkillsExtended
         internal static GameObject Hook;
         internal static MedicalBehavior MedicalScript;
         internal static UsecARSystemsBehavior UsecARSystems;
-        internal static BearAkSystemsBehavior BearAkSystems;
+        internal static BearAKSystemsBehavior BearAKSystems;
 
         internal static ManualLogSource Log;
 
@@ -44,11 +44,12 @@ namespace SkillsExtended
 
             Log = Logger;
             Log.LogInfo("Loading Skills Extended");
-            Hook = new GameObject("Event Object");
+            
+            Hook = new GameObject("Skills Controller Object");
            
             MedicalScript = Hook.AddComponent<MedicalBehavior>();
             UsecARSystems = Hook.AddComponent<UsecARSystemsBehavior>();
-            BearAkSystems = Hook.AddComponent<BearAkSystemsBehavior>();
+            BearAKSystems = Hook.AddComponent<BearAKSystemsBehavior>();
 
             DontDestroyOnLoad(Hook);           
 
