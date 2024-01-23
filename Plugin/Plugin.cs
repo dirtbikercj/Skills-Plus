@@ -50,19 +50,7 @@ namespace SkillsExtended
             UsecARSystems = Hook.AddComponent<UsecARSystemsBehavior>();
             BearAkSystems = Hook.AddComponent<BearAkSystemsBehavior>();
 
-            DontDestroyOnLoad(Hook);
-            
-            List<SkillProgress> progressList = new List<SkillProgress>
-            {
-                new SkillProgress { SkillId = "456", Progress = 0.75f },
-                new SkillProgress { SkillId = "101", Progress = 0.50f },
-            };
-
-            Profile profileImpl = new Profile
-            {
-                ProfileId = "TESTID",
-                Skills = progressList
-            };
+            DontDestroyOnLoad(Hook);           
 
 #if DEBUG
             ConsoleCommands.RegisterCommands();
