@@ -1,5 +1,4 @@
 ﻿using System;
-using EFT.UI;
 using BepInEx;
 using UnityEngine;
 using BepInEx.Logging;
@@ -7,13 +6,14 @@ using Aki.Reflection.Utils;
 using SkillsExtended.Controllers;
 using DrakiaXYZ.VersionChecker;
 using SkillsExtended.Helpers;
-using static SkillsExtended.Patches.SkillsPatches;
-using System.Collections.Generic;
 using Skills_Extended.Controllers;
+
+using static SkillsExtended.Patches.SkillsPatches;
+using static SkillsExtended.Patches.SkillsPatches.SimpleToolTipPatch;
 
 namespace SkillsExtended
 {
-    [BepInPlugin("com.dirtbikercj.SkillsExtended", "Skills Extended", "0.2.3")]
+    [BepInPlugin("com.dirtbikercj.SkillsExtended", "Skills Extended", "0.3.0")]
 
     public class Plugin : BaseUnityPlugin
     {
@@ -24,8 +24,8 @@ namespace SkillsExtended
 
         internal static GameObject Hook;
         internal static MedicalBehavior MedicalScript;
-        internal static UsecARSystemsBehavior UsecARSystems;
-        internal static BearAKSystemsBehavior BearAKSystems;
+        internal static UsecWeaponBehaviors UsecARSystems;
+        internal static BearWeaponBehaviors BearAKSystems;
 
         internal static ManualLogSource Log;
 
@@ -39,17 +39,18 @@ namespace SkillsExtended
             }
 
             new EnableSkillsPatch().Enable();
+            new SkillPanelNamePatch().Enable();
             new SimpleToolTipPatch().Enable();
             new SkillManagerConstructorPatch().Enable();
+            new OnScreenChangePatch().Enable();
 
             Log = Logger;
-            Log.LogInfo("Loading Skills Extended");
             
             Hook = new GameObject("Skills Controller Object");
            
             MedicalScript = Hook.AddComponent<MedicalBehavior>();
-            UsecARSystems = Hook.AddComponent<UsecARSystemsBehavior>();
-            BearAKSystems = Hook.AddComponent<BearAKSystemsBehavior>();
+            UsecARSystems = Hook.AddComponent<UsecWeaponBehaviors>();
+            BearAKSystems = Hook.AddComponent<BearWeaponBehaviors>();
 
             DontDestroyOnLoad(Hook);           
 

@@ -8,7 +8,13 @@ namespace SkillsExtended.Helpers
 {
     public static class Constants
     {
-        public static readonly List<string> USECWEAPONS = new List<string>
+        #region USEC_PROF
+        public const float USEC_ERGO_MOD = 0.002f;                  //Ergonomics
+        public const float USEC_ERGO_MOD_ELITE = 0.015f;
+        public const float USEC_RECOIL_REDUCTION = 0.001f;           //Recoil bonus
+        public const float USEC_RECOIL_REDUCTION_ELITE = 0.015f;
+
+        public static readonly List<string> USEC_WEAPON_LIST = new List<string>
         {
             // ASSAULT RIFLES
             "62e7c4fba689e8c9c50dfc38", //AUG A1
@@ -32,7 +38,9 @@ namespace SkillsExtended.Helpers
             "5d43021ca4b9362eab4b5e25", //TX15
         };
 
-        public static readonly List<string> BEARWEAPONS = new List<string>
+        #endregion  
+
+        public static readonly List<string> BEAR_WEAPON_LIST = new List<string>
         {
             // ASSAULT RIFLES
             "6499849fc93611967b034949", //AK-12

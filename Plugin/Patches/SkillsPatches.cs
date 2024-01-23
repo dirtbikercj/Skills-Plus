@@ -1,12 +1,14 @@
 ﻿using Aki.Reflection.Patching;
 using EFT;
 using EFT.UI;
+using EFT.UI.Screens;
 using HarmonyLib;
 using SkillsExtended.Controllers;
 using SkillsExtended.Helpers;
 using System;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using TMPro;
 using static EFT.SkillManager;
 
 namespace SkillsExtended.Patches
@@ -112,16 +114,63 @@ namespace SkillsExtended.Patches
 
                 if (Regex.IsMatch(text, usecARSystems))
                 {
-                    //TODO: Replace placeholder text
+                    var usecSystems = Plugin.Session.Profile.Skills.UsecArsystems;
 
-                    __instance.SetText($"As a Usec operator, you excel in the use of NATO assault weapons and carbines.");
+                    var ergoBonus = usecSystems.IsEliteLevel ? usecSystems.Level * Constants.USEC_ERGO_MOD + Constants.USEC_ERGO_MOD_ELITE : usecSystems.Level * Constants.USEC_ERGO_MOD;
+                    var recoilReduction = usecSystems.IsEliteLevel ? usecSystems.Level * Constants.USEC_RECOIL_REDUCTION + Constants.USEC_RECOIL_REDUCTION_ELITE : usecSystems.Level * Constants.USEC_RECOIL_REDUCTION;
+
+                    __instance.SetText($"As a USEC PMC, you excel in the use of NATO assault rifles and carbines. \n\n" +
+                        $"Inceases ergonomics by {Constants.USEC_ERGO_MOD * 100}% per level on NATO assault rifles and carbines. \n {Constants.USEC_RECOIL_REDUCTION_ELITE * 100}% Elite bonus \n\n" +
+                        $"Reduces vertical and horizontal recoil by {Constants.USEC_RECOIL_REDUCTION * 100}% per level. \n {Constants.USEC_RECOIL_REDUCTION_ELITE * 100}% Elite bonus \n\n" + 
+                        $"Current ergonomics bonus: <color=red>{ergoBonus * 100}%</color>\n" +
+                        $"Current recoil bonuses: <color=red>{recoilReduction * 100}%</color>");
                 }
 
                 if (Regex.IsMatch(text, bearAKSystems))
                 {
                     //TODO: Replace placeholder text
 
-                    __instance.SetText($"As a Bear operator, you excel in the use of eastern block assult weapons and carbines.");
+                    __instance.SetText($"As a Bear PMC, you excel in the use of eastern block assult rifles and carbines.");
+                }
+            }
+
+            internal class SkillPanelNamePatch : ModulePatch
+            {
+                protected override MethodBase GetTargetMethod() =>
+                    typeof(SkillPanel).GetMethod("Show", BindingFlags.Public | BindingFlags.Instance);
+
+                [PatchPostfix]
+                public static void Postfix(SkillPanel __instance, GClass1635 skill)
+                {
+                    if (skill.Id == ESkillId.UsecArsystems)
+                    {
+                        TextMeshProUGUI name = (TextMeshProUGUI)AccessTools.Field(typeof(SkillPanel), "_name").GetValue(__instance);
+                        name.text = "USEC rifle and carbine proficiency";
+                    }
+
+                    if (skill.Id == ESkillId.BearAksystems)
+                    {
+                        TextMeshProUGUI name = (TextMeshProUGUI)AccessTools.Field(typeof(SkillPanel), "_name").GetValue(__instance);
+                        name.text = "BEAR rifle and carbine proficiency";
+                    }
+                }
+            }
+
+            internal class OnScreenChangePatch : ModulePatch
+            {
+                protected override MethodBase GetTargetMethod() =>
+                    typeof(MenuTaskBar).GetMethod("OnScreenChanged");
+
+                [PatchPrefix]
+                public static void Prefix(EEftScreenType eftScreenType)
+                {
+                    if (eftScreenType == EEftScreenType.Inventory)
+                    {
+                        Plugin.MedicalScript.fieldMedicineInstanceIDs.Clear();
+                        Plugin.MedicalScript.firstAidInstanceIDs.Clear();
+                        Plugin.UsecARSystems.weaponInstanceIds.Clear(); 
+                        Utils.GetServerConfig();
+                    }
                 }
             }
         }

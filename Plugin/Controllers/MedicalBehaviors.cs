@@ -9,9 +9,8 @@ using EFT.InventoryLogic;
 using SkillsExtended.Helpers;
 using System.Collections;
 using System.Collections.Generic;
-using static SkillsExtended.Patches.MedicalPatches;
-using Diz.Jobs;
 using System;
+using SkillsExtended.Patches;
 
 namespace SkillsExtended.Controllers
 {
@@ -91,7 +90,6 @@ namespace SkillsExtended.Controllers
         private void Awake()
         {
             new DoMedEffectPatch().Enable();
-            new OnScreenChangePatch().Enable(); 
         }
 
         private void Update()
