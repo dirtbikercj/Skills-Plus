@@ -96,7 +96,7 @@ namespace SkillsExtended.Patches
 
                     __instance.SetText($"First aid skills make use of first aid kits quicker and more effective." +
                         $"\n\n Increases the speed of healing items by 0.7% per level. \n\n Elite bonus: 15% \n\n Increases the HP resource of medical items by 5 per level. \n\n Elite bonus: 10 per level." +
-                        $"\n\n Current speed bonus: <color=red>{speedBonus * 100}%</color> \n\n Current bonus HP: <color=red>{hpBonus}</color>");
+                        $"\n\n Current speed bonus: <color=#54C1FFFF>{speedBonus * 100}%</color> \n\n Current bonus HP: <color=#54C1FFFF>{hpBonus}</color>");
                 }
 
                 if (Regex.IsMatch(text, fieldMedicine))
@@ -109,7 +109,7 @@ namespace SkillsExtended.Patches
                     }
 
                     __instance.SetText($"Field Medicine increases your skill at applying wound dressings. \n\n Increases the speed of splints, bandages, and heavy bleed items 0.7% per level. \n\n Elite bonus: 15% " +
-                        $"\n\n Current speed bonus: <color=red>{speedBonus * 100}%</color>");
+                        $"\n\n Current speed bonus: <color=#54C1FFFF>{speedBonus * 100}%</color>");
                 }
 
                 if (Regex.IsMatch(text, usecARSystems))
@@ -122,8 +122,8 @@ namespace SkillsExtended.Patches
                     __instance.SetText($"As a USEC PMC, you excel in the use of NATO assault rifles and carbines. \n\n" +
                         $"Inceases ergonomics by {Constants.USEC_ERGO_MOD * 100}% per level on NATO assault rifles and carbines. \n {Constants.USEC_RECOIL_REDUCTION_ELITE * 100}% Elite bonus \n\n" +
                         $"Reduces vertical and horizontal recoil by {Constants.USEC_RECOIL_REDUCTION * 100}% per level. \n {Constants.USEC_RECOIL_REDUCTION_ELITE * 100}% Elite bonus \n\n" + 
-                        $"Current ergonomics bonus: <color=red>{ergoBonus * 100}%</color>\n" +
-                        $"Current recoil bonuses: <color=red>{recoilReduction * 100}%</color>");
+                        $"Current ergonomics bonus: <color=#54C1FFFF>{ergoBonus * 100}%</color>\n" +
+                        $"Current recoil bonuses: <color=#54C1FFFF>{recoilReduction * 100}%</color>");
                 }
 
                 if (Regex.IsMatch(text, bearAKSystems))

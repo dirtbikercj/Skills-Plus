@@ -36,6 +36,7 @@ namespace Skills_Extended.Controllers
         private void Awake()
         {
             new IsShootingWeaponPatch().Enable();
+            new ItemAttributeDisplayPatch().Enable();
         }
 
         private void Update()
