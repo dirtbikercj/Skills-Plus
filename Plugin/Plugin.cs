@@ -8,6 +8,8 @@ using SkillsExtended.Controllers;
 using DrakiaXYZ.VersionChecker;
 using SkillsExtended.Helpers;
 using static SkillsExtended.Patches.SkillsPatches;
+using System.Collections.Generic;
+using Skills_Extended.Controllers;
 
 namespace SkillsExtended
 {
@@ -18,9 +20,13 @@ namespace SkillsExtended
         public const int TarkovVersion = 26535;
 
         public static ISession Session;
+        public static Profile SEProfile;
 
         internal static GameObject Hook;
         internal static MedicalBehavior MedicalScript;
+        internal static UsecARSystemsBehavior UsecARSystems;
+        internal static BearAkSystemsBehavior BearAkSystems;
+
         internal static ManualLogSource Log;
 
         private bool _warned = false;
@@ -39,12 +45,28 @@ namespace SkillsExtended
             Log = Logger;
             Log.LogInfo("Loading Skills Extended");
             Hook = new GameObject("Event Object");
+           
             MedicalScript = Hook.AddComponent<MedicalBehavior>();
-            DontDestroyOnLoad(Hook);
+            UsecARSystems = Hook.AddComponent<UsecARSystemsBehavior>();
+            BearAkSystems = Hook.AddComponent<BearAkSystemsBehavior>();
 
-            #if DEBUG
+            DontDestroyOnLoad(Hook);
+            
+            List<SkillProgress> progressList = new List<SkillProgress>
+            {
+                new SkillProgress { SkillId = "456", Progress = 0.75f },
+                new SkillProgress { SkillId = "101", Progress = 0.50f },
+            };
+
+            Profile profileImpl = new Profile
+            {
+                ProfileId = "TESTID",
+                Skills = progressList
+            };
+
+#if DEBUG
             ConsoleCommands.RegisterCommands();
-            #endif
+#endif
         }
 
         void Update()
