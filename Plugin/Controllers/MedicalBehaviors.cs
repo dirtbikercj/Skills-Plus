@@ -287,6 +287,7 @@ namespace SkillsExtended.Controllers
 
                 var medComp = AccessTools.Field(typeof(MedsClass), "MedKitComponent").GetValue(meds);
                 AccessTools.Field(typeof(MedKitComponent), "ginterface249_0").SetValue(medComp, newInterface);                         
+                AccessTools.Field(typeof(MedKitComponent), "ginterface249_0").SetValue(medComp, newInterface);         
             }
         }
 
