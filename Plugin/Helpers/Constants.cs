@@ -8,11 +8,12 @@ namespace SkillsExtended.Helpers
 {
     public static class Constants
     {
-        #region USEC_PROF
-        public const float USEC_ERGO_MOD = 0.003f;                  //Ergonomics
-        public const float USEC_ERGO_MOD_ELITE = 0.10f;
-        public const float USEC_RECOIL_REDUCTION = 0.004f;           //Recoil bonus
-        public const float USEC_RECOIL_REDUCTION_ELITE = 0.12f;
+
+        public const float WEAPON_PROF_XP = 0.35f;
+        public const float ERGO_MOD = 0.003f;                  //Ergonomics
+        public const float ERGO_MOD_ELITE = 0.10f;
+        public const float RECOIL_REDUCTION = 0.004f;           //Recoil bonus
+        public const float RECOIL_REDUCTION_ELITE = 0.12f;
 
         public static readonly List<string> USEC_WEAPON_LIST = new List<string>
         {
@@ -37,10 +38,6 @@ namespace SkillsExtended.Helpers
             "5f2a9575926fd9352339381f", //RFB
             "5d43021ca4b9362eab4b5e25", //TX15
         };
-
-        #endregion
-
-        #region BEAR_PROF
 
         public static readonly List<string> BEAR_WEAPON_LIST = new List<string>
         {
@@ -73,7 +70,5 @@ namespace SkillsExtended.Helpers
             "59e6152586f77473dc057aa1", //VPO-136
             "59e6687d86f77411d949b251", //VPO-209
         };
-
-        #endregion
     }
 }

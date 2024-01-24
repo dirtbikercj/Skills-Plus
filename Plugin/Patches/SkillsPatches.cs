@@ -116,21 +116,28 @@ namespace SkillsExtended.Patches
                 {
                     var usecSystems = Plugin.Session.Profile.Skills.UsecArsystems;
 
-                    var ergoBonus = usecSystems.IsEliteLevel ? usecSystems.Level * Constants.USEC_ERGO_MOD + Constants.USEC_ERGO_MOD_ELITE : usecSystems.Level * Constants.USEC_ERGO_MOD;
-                    var recoilReduction = usecSystems.IsEliteLevel ? usecSystems.Level * Constants.USEC_RECOIL_REDUCTION + Constants.USEC_RECOIL_REDUCTION_ELITE : usecSystems.Level * Constants.USEC_RECOIL_REDUCTION;
+                    var ergoBonus = usecSystems.IsEliteLevel ? usecSystems.Level * Constants.ERGO_MOD + Constants.ERGO_MOD_ELITE : usecSystems.Level * Constants.ERGO_MOD;
+                    var recoilReduction = usecSystems.IsEliteLevel ? usecSystems.Level * Constants.RECOIL_REDUCTION + Constants.RECOIL_REDUCTION_ELITE : usecSystems.Level * Constants.RECOIL_REDUCTION;
 
                     __instance.SetText($"As a USEC PMC, you excel in the use of NATO assault rifles and carbines. \n\n" +
-                        $"Inceases ergonomics by {Constants.USEC_ERGO_MOD * 100}% per level on NATO assault rifles and carbines. \n {Constants.USEC_RECOIL_REDUCTION_ELITE * 100}% Elite bonus \n\n" +
-                        $"Reduces vertical and horizontal recoil by {Constants.USEC_RECOIL_REDUCTION * 100}% per level. \n {Constants.USEC_RECOIL_REDUCTION_ELITE * 100}% Elite bonus \n\n" +
+                        $"Inceases ergonomics by {Constants.ERGO_MOD * 100}% per level on NATO assault rifles and carbines. \n {Constants.RECOIL_REDUCTION_ELITE * 100}% Elite bonus \n\n" +
+                        $"Reduces vertical and horizontal recoil by {Constants.RECOIL_REDUCTION * 100}% per level. \n {Constants.RECOIL_REDUCTION_ELITE * 100}% Elite bonus \n\n" +
                         $"Current ergonomics bonus: <color=#54C1FFFF>{ergoBonus * 100}%</color>\n" +
                         $"Current recoil bonuses: <color=#54C1FFFF>{recoilReduction * 100}%</color>");
                 }
 
                 if (Regex.IsMatch(text, bearAKSystems))
                 {
-                    //TODO: Replace placeholder text
+                    var bearSystems = Plugin.Session.Profile.Skills.BearAksystems;
 
-                    __instance.SetText($"As a Bear PMC, you excel in the use of eastern block assult rifles and carbines.");
+                    var ergoBonus = bearSystems.IsEliteLevel ? bearSystems.Level * Constants.ERGO_MOD + Constants.ERGO_MOD_ELITE : bearSystems.Level * Constants.ERGO_MOD;
+                    var recoilReduction = bearSystems.IsEliteLevel ? bearSystems.Level * Constants.RECOIL_REDUCTION + Constants.RECOIL_REDUCTION_ELITE : bearSystems.Level * Constants.RECOIL_REDUCTION;
+
+                    __instance.SetText($"As a BEAR PMC, you excel in the use of Russian assault rifles and carbines. \n\n" +
+                        $"Inceases ergonomics by {Constants.ERGO_MOD * 100}% per level on Russian assault rifles and carbines. \n {Constants.RECOIL_REDUCTION_ELITE * 100}% Elite bonus \n\n" +
+                        $"Reduces vertical and horizontal recoil by {Constants.RECOIL_REDUCTION * 100}% per level. \n {Constants.RECOIL_REDUCTION_ELITE * 100}% Elite bonus \n\n" +
+                        $"Current ergonomics bonus: <color=#54C1FFFF>{ergoBonus * 100}%</color>\n" +
+                        $"Current recoil bonuses: <color=#54C1FFFF>{recoilReduction * 100}%</color>");
                 }
             }
 
@@ -142,10 +149,28 @@ namespace SkillsExtended.Patches
                 [PatchPrefix]
                 public static bool Prefix(GClass1635 skill)
                 {
+                    var skills = Plugin.Session.Profile.Skills;
+                    var side = Plugin.Session.Profile.Side;
+
                     if (skill.Locked)
                     {
+                        // Skip original method and dont show skill
                         return false;
                     }
+
+                    if (skill.Id == ESkillId.UsecArsystems && side == EPlayerSide.Bear && !skills.BearAksystems.IsEliteLevel)
+                    {
+                        // Skip original method and dont show skill
+                        return false;
+                    }
+
+                    if (skill.Id == ESkillId.BearAksystems && side == EPlayerSide.Usec && !skills.UsecArsystems.IsEliteLevel)
+                    {
+                        // Skip original method and dont show skill
+                        return false;
+                    }
+
+                    // Show the skill
                     return true;
                 }
             }

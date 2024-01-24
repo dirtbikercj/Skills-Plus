@@ -10,6 +10,7 @@ using Skills_Extended.Controllers;
 
 using static SkillsExtended.Patches.SkillsPatches;
 using static SkillsExtended.Patches.SkillsPatches.SimpleToolTipPatch;
+using SkillsExtended.Patches;
 
 namespace SkillsExtended
 {
@@ -24,8 +25,7 @@ namespace SkillsExtended
 
         internal static GameObject Hook;
         internal static MedicalBehavior MedicalScript;
-        internal static UsecWeaponBehaviors UsecARSystems;
-        internal static BearWeaponBehaviors BearAKSystems;
+        internal static WeaponProficiencyBehaviors UsecARSystems;
 
         internal static ManualLogSource Log;
 
@@ -45,14 +45,14 @@ namespace SkillsExtended
             new SkillManagerConstructorPatch().Enable();
             new OnScreenChangePatch().Enable();
             
+            new ItemAttributeDisplayPatch().Enable();
 
             Log = Logger;
             
             Hook = new GameObject("Skills Controller Object");
            
             MedicalScript = Hook.AddComponent<MedicalBehavior>();
-            UsecARSystems = Hook.AddComponent<UsecWeaponBehaviors>();
-            BearAKSystems = Hook.AddComponent<BearWeaponBehaviors>();
+            UsecARSystems = Hook.AddComponent<WeaponProficiencyBehaviors>();
 
             DontDestroyOnLoad(Hook);           
 
